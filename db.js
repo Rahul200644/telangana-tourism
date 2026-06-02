@@ -2,11 +2,17 @@
 const Database = require('better-sqlite3');
 const bcrypt = require('bcryptjs');
 const path = require('path');
+const fs = require('fs');
 require('dotenv').config();
 
 const DB_PATH = process.env.DB_PATH || './data/tourism.db';
-const db = new Database(DB_PATH);
 
+// Create data folder if not exists
+if (!fs.existsSync('./data')) {
+  fs.mkdirSync('./data');
+}
+
+const db = new Database(DB_PATH);
 // Enable WAL mode for better performance
 db.pragma('journal_mode = WAL');
 db.pragma('foreign_keys = ON');
