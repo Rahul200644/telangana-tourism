@@ -159,7 +159,18 @@ function seedDistricts() {
   DISTRICT_DATA.forEach(d => {
     const result = insertDistrict.run(d.name, d.color, d.lat, d.lng, d.description, d.best_season, d.famous_for);
     const districtId = result.lastInsertRowid;
-    const places = PLACES_DATA[d.name] || [];
+    const places = PLACES_DATA[d.name] || [
+{
+  name: `${d.name} Tourist Center`,
+  type: 'Attraction',
+  icon: '🏛️',
+  description: `Explore ${d.name}`,
+  timing: '9AM–6PM',
+  entry_fee: 'Free',
+  lat: d.lat,
+  lng: d.lng
+}
+];
     places.forEach(p => {
       insertPlace.run(districtId, p.name, p.type, p.icon, p.description, p.timing, p.entry_fee, p.lat || d.lat, p.lng || d.lng);
     });
