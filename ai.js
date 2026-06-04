@@ -52,8 +52,7 @@ router.post('/chat', authMiddleware, async (req, res) => {
 });
 
 // POST /api/ai/itinerary
-router.post('/itinerary', authMiddleware, async (req, res) => {
-  const {
+router.post('/itinerary', async (req, res) => {  const {
   from,
   to,
   days,
