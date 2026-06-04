@@ -172,14 +172,16 @@ No extra text outside the JSON.`;
 
   try {
     const completion = await openai.chat.completions.create({
-      model: 'llama-3.3-70b-versatile',
-      messages: [{ role: 'user', content: prompt }],
-      max_tokens: 1500,
-      temperature: 0.7,
-      response_format: { type: 'json_object' }
-    });
+  model: 'llama-3.3-70b-versatile',
+  messages: [{ role: 'user', content: prompt }],
+  max_tokens: 1500,
+  temperature: 0.7
+});
+    let content = completion.choices[0].message.content;
 
-    const itinerary = JSON.parse(completion.choices[0].message.content);
+content = content.replace(/```json/g, '').replace(/```/g, '').trim();
+
+const itinerary = JSON.parse(content);
 
 console.log("AI ITINERARY:");
 console.log(JSON.stringify(itinerary, null, 2));
