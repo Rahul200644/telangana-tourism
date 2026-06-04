@@ -5,6 +5,7 @@ const OpenAI = require('openai');
 const db = require('./db');
 const { authMiddleware } = require('./auth');
 
+console.log("GROQ KEY EXISTS:", !!process.env.GROQ_API_KEY);
 const openai = new OpenAI({
   apiKey: process.env.GROQ_API_KEY,
   baseURL: 'https://api.groq.com/openai/v1'
